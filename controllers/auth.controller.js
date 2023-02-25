@@ -165,5 +165,5 @@ exports.loginCtrl = async(req,res,next)=>{
 
 
 exports.verifyCtrl = (req,res,next)=>{
-    res.status(200).json({ result:req.payload})
+    res.status(200).json(req.payload)
 }
