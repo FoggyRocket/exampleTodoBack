@@ -1,4 +1,3 @@
-//modelo, bcrypt jsonwebtoken, express, mongoose express-jwt
 
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -12,7 +11,6 @@ exports.signupCtrl = async (req, res, next) => {
   try {
     const { email, password, username } = req.body;
 
-    //verificar si estan mandando los datos
     if (email === "" || password === "" || username === "") {
       res
         .status(400)
@@ -20,7 +18,6 @@ exports.signupCtrl = async (req, res, next) => {
       return;
     }
 
-    // Verificar el correo
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(email)) {
       res
@@ -32,7 +29,6 @@ exports.signupCtrl = async (req, res, next) => {
       return;
     }
 
-    //verificacion de password
     const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
       res
@@ -44,16 +40,13 @@ exports.signupCtrl = async (req, res, next) => {
       return;
     }
 
-    // validar si el usuario (email) ya existe
 
     const foundUser = await User.findOne({ email });
-    // si encuentra sera = {...} en caso contrario sera = null
     if (foundUser) {
       res.status(400).json({ messageError: "Este usuario ya existe" });
       return;
     }
 
-    //generar salt para hacer hash del password
     const salt = bcryptjs.genSaltSync(saltRounds);
     const hashedPassword = bcryptjs.hashSync(password, salt);
 
@@ -75,13 +68,7 @@ exports.signupCtrl = async (req, res, next) => {
   )
 
   res.status(200).json({authToken})
-    /**
-     *  {
-     * emailCreated:dylan@gmail.,
-     * usernameCreated:foggyrocket,
-     * _id:213u2193898123,
-     * }
-     */
+
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({ messageError: error.message });

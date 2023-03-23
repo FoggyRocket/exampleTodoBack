@@ -13,7 +13,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params:{
-        folder:"todoExample",
+        folder:"travelx",
         allowedFormats:["jpg","png","jpeg","pdf"]
     }
 })
