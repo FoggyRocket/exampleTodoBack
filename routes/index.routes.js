@@ -2,6 +2,8 @@ const router = require("express").Router();
 const authRoutes = require("./auth.routes")//<====
 const uploadRoutes = require("./upload.routes")//<====
 const userRoutes = require("./user.routes")//<====
+const usersRoutes = require("./users.routes")//<====
+
 const Todo = require("../models/Todo.model")
 const {getById,deleteTodo,updateTodo} = require("../controllers/todo.crontroller");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
@@ -13,6 +15,7 @@ router.get("/", (req, res, next) => {
 router.use("/auth",authRoutes) //<====
 router.use("/upload",uploadRoutes) //<====
 router.use("/user",userRoutes)
+router.use("/users",usersRoutes) //<===
 //fin Buena practica
 
 //recodemos!!! 
